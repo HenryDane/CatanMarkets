@@ -1,0 +1,2 @@
+# Catan Markets
+This is a simple program used to track commodity values in the Catan boardgame. The interface is reasonably straight forward and should be easy to use. The values are (currently) caculated by 1 - ( # of type of card / total # of cards). 
