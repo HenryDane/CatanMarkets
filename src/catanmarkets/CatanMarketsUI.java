@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
+import static java.lang.Double.NaN;
 import java.util.ArrayList;
 import javax.swing.UIManager;
 //import javax.swing.plaf.metal.*;
@@ -95,6 +96,7 @@ public class CatanMarketsUI extends javax.swing.JFrame {
         sheepCount = new javax.swing.JLabel();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
         aboutDialog = new javax.swing.JDialog();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -517,23 +519,34 @@ public class CatanMarketsUI extends javax.swing.JFrame {
 
         jButton9.setText("Cancel");
 
+        jButton13.setText("Reset");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout newRoundPaneLayout = new javax.swing.GroupLayout(newRoundPane.getContentPane());
         newRoundPane.getContentPane().setLayout(newRoundPaneLayout);
         newRoundPaneLayout.setHorizontalGroup(
             newRoundPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(newRoundPaneLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(newRoundPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(newRoundPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jButton9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(newRoundPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(newRoundPaneLayout.createSequentialGroup()
+                        .addGroup(newRoundPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(newRoundPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jButton9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         newRoundPaneLayout.setVerticalGroup(
             newRoundPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -551,9 +564,11 @@ public class CatanMarketsUI extends javax.swing.JFrame {
                     .addGroup(newRoundPaneLayout.createSequentialGroup()
                         .addComponent(jButton9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton8))
+                        .addComponent(jButton13))
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton8)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         newRoundPane.pack();
@@ -1542,6 +1557,14 @@ public class CatanMarketsUI extends javax.swing.JFrame {
         from = Commodity.BRICK;
     }//GEN-LAST:event_jRadioButton5ActionPerformed
 
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // TODO add your handling code here:
+        graphActual.reset();
+        graphEjectedActual.reset();
+        newRoundPane.setVisible(false);
+        updateThings();
+    }//GEN-LAST:event_jButton13ActionPerformed
+
     private void updateThings(){
         ArrayList<Data> datas = graphActual.getData();
         // brick sheep stone wheat wood
@@ -1593,18 +1616,45 @@ public class CatanMarketsUI extends javax.swing.JFrame {
                 
             }
         }
-        setUDFs(Commodity.BRICK, indicators[0], "" + String.format("%.2f",datas.get(datas.size()-1).brick()));
-        setUDFs(Commodity.SHEEP, indicators[1], "" + String.format("%.2f",datas.get(datas.size()-1).sheep()));
-        setUDFs(Commodity.STONE, indicators[2], "" + String.format("%.2f",datas.get(datas.size()-1).stone()));
-        setUDFs(Commodity.WHEAT, indicators[3], "" + String.format("%.2f",datas.get(datas.size()-1).wheat()));
-        setUDFs(Commodity.WOOD, indicators[4], "" + String.format("%.2f",datas.get(datas.size()-1).wood()));
+             
         repaint();
+        
+        if (!Double.isNaN(datas.get(datas.size()-1).sheep())){ 
+            setUDFs(Commodity.SHEEP, indicators[1], "" + String.format("%.2f",datas.get(datas.size()-1).sheep()));
+        } else {
+            setUDFs(Commodity.SHEEP, indicators[1], "0.0");
+        } 
+        
+        if (!Double.isNaN(datas.get(datas.size()-1).stone())){ 
+            setUDFs(Commodity.STONE, indicators[2], "" + String.format("%.2f",datas.get(datas.size()-1).stone()));
+        } else {
+            setUDFs(Commodity.STONE, indicators[2], "0.0");
+        } 
+        
+        if (!Double.isNaN(datas.get(datas.size()-1).wheat())){ 
+            setUDFs(Commodity.WHEAT, indicators[3], "" + String.format("%.2f",datas.get(datas.size()-1).wheat()));
+        } else {
+            setUDFs(Commodity.WHEAT, indicators[3], "0.0");
+        } 
+        
+        if (!Double.isNaN(datas.get(datas.size()-1).brick())){ 
+            setUDFs(Commodity.BRICK, indicators[0], "" + String.format("%.2f",datas.get(datas.size()-1).brick()));
+        } else {
+            setUDFs(Commodity.BRICK, indicators[0], "0.0");
+        } 
+        
+        if (!Double.isNaN(datas.get(datas.size()-1).wood())){ 
+            setUDFs(Commodity.WOOD, indicators[4], "" + String.format("%.2f",datas.get(datas.size()-1).wood()));
+        } else {
+            setUDFs(Commodity.WOOD, indicators[4], "0.0");
+        } 
         
         sheepCount.setText(graphActual.getCompiled().sheep + "");
         brickCount.setText(graphActual.getCompiled().brick + "");
         stoneCount.setText(graphActual.getCompiled().stone + "");
         wheatCount.setText(graphActual.getCompiled().wheat + "");
         woodCount.setText(graphActual.getCompiled().wood + "");
+        
     }
     /**
      * @param args the command line arguments
@@ -1842,6 +1892,7 @@ public class CatanMarketsUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

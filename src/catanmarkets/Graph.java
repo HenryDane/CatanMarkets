@@ -127,5 +127,13 @@ public class Graph extends javax.swing.JPanel{
     public Data getCompiled(){
         return compiled;
     }
+    
+    public void reset(){
+        data.clear();
+        parsed.clear();
+        compiled = new Data(0.0,0.0,0.0,0.0,0.0);
+        parsed.add(compiled);
+        data.add(compiled);
+    }
 }
 
