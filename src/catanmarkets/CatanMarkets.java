@@ -26,17 +26,14 @@ public class CatanMarkets {
             }
         });
         System.out.println(javax.swing.UIManager.getSystemLookAndFeelClassName());
-//        cmui.create();
-//        cmui.setUDFs(Commodity.BRICK, ValueIndicator.FLAT);
-//        cmui.setUDFs(Commodity.SHEEP, ValueIndicator.UP, "23.23");
-//        BoardGenerator bg = new BoardGenerator();
-        BoardGeneratorInterface bgi = new BoardGeneratorInterface();
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                bgi.setVisible(true);
-                bgi.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-            }
-        });
+        
+        //BoardGeneratorInterface bgi = new BoardGeneratorInterface();
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                bgi.setVisible(true);
+//                bgi.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+//            }
+//        });
     }
     
 }

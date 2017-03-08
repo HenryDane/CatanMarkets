@@ -14,5 +14,6 @@ public enum Commodity {
     BRICK,
     WHEAT,
     STONE,
-    WOOD
+    WOOD,
+    NONE
 }
