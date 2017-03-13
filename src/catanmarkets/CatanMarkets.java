@@ -22,18 +22,9 @@ public class CatanMarkets {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 cmui.setVisible(true);
-//                cmui.repaint();
             }
         });
         System.out.println(javax.swing.UIManager.getSystemLookAndFeelClassName());
-        
-        //BoardGeneratorInterface bgi = new BoardGeneratorInterface();
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                bgi.setVisible(true);
-//                bgi.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-//            }
-//        });
     }
     
 }

@@ -59,7 +59,7 @@ public class Graph extends javax.swing.JPanel{
                 g.drawLine((getSize().width/factor) * i, valueToVertical(parsed.get(i).sheep()), (getSize().width/factor) * (i+1), valueToVertical(parsed.get(i + 1).sheep()));
                 g.setColor(Color.BLACK);
                 g.drawLine((getSize().width/factor) * i, valueToVertical(parsed.get(i).stone()), (getSize().width/factor) * (i+1), valueToVertical(parsed.get(i + 1).stone()));
-                g.setColor(Color.YELLOW);
+                g.setColor(Color.BLUE);
                 g.drawLine((getSize().width/factor) * i, valueToVertical(parsed.get(i).wheat()), (getSize().width/factor) * (i+1), valueToVertical(parsed.get(i + 1).wheat()));
                 g.setColor(Color.ORANGE);
                 g.drawLine((getSize().width/factor) * i, valueToVertical(parsed.get(i).wood()), (getSize().width/factor) * (i+1), valueToVertical(parsed.get(i + 1).wood()));
@@ -76,7 +76,7 @@ public class Graph extends javax.swing.JPanel{
                 g.drawLine((getSize().width/factor) * j, valueToVertical(parsed.get(i).sheep()), (getSize().width/factor) * (j+1), valueToVertical(parsed.get(i + 1).sheep()));
                 g.setColor(Color.BLACK);
                 g.drawLine((getSize().width/factor) * j, valueToVertical(parsed.get(i).stone()), (getSize().width/factor) * (j+1), valueToVertical(parsed.get(i + 1).stone()));
-                g.setColor(Color.YELLOW);
+                g.setColor(Color.BLUE);
                 g.drawLine((getSize().width/factor) * j, valueToVertical(parsed.get(i).wheat()), (getSize().width/factor) * (j+1), valueToVertical(parsed.get(i + 1).wheat()));
                 g.setColor(Color.ORANGE);
                 g.drawLine((getSize().width/factor) * j, valueToVertical(parsed.get(i).wood()), (getSize().width/factor) * (j+1), valueToVertical(parsed.get(i + 1).wood()));
@@ -89,12 +89,8 @@ public class Graph extends javax.swing.JPanel{
     
     public void addData(Data d){
         Data t = parsed.get(parsed.size() - 1);
-//        System.out.println("{DATA} T: " + t.brick);
-//        System.out.println("{DATA} D: " + d.brick);
         Data dx = new Data(0.0,0.0,0.0,0.0,0.0);
         parsed.add(dx._add(t,d));
-//        System.out.println("{DATA} T: " + t.brick);
-
         repaint();
     }
     
@@ -110,17 +106,6 @@ public class Graph extends javax.swing.JPanel{
     }
     
     public ArrayList<Data> getData(){
-//        System.out.println("=======================");
-//        System.out.println("= GET DATA            =");
-//        for(Data d : parsed){
-//            System.out.println("====" + d.toString() + "====");
-//            System.out.println("BRICK: " + d.brick + "  WORTH: " + d.brick());
-//            System.out.println("WHEAT: " + d.wheat + "  WORTH: " + d.wheat());
-//            System.out.println("STONE: " + d.stone + "  WORTH: " + d.stone());
-//            System.out.println("SHEEP: " + d.sheep + "  WORTH: " + d.sheep());
-//            System.out.println("WOOD: " + d.wood + "  WORTH: " + d.wood());
-//        }
-//        System.out.println();
         return parsed;
     }
     
@@ -134,6 +119,13 @@ public class Graph extends javax.swing.JPanel{
         compiled = new Data(0.0,0.0,0.0,0.0,0.0);
         parsed.add(compiled);
         data.add(compiled);
+    }
+    
+    public void setData(ArrayList<Data> d){
+        this.data = d;
+        this.parsed = d;
+        repaint();
+        validate();
     }
 }
 

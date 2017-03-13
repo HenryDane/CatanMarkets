@@ -9,9 +9,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
-import static java.lang.Double.NaN;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
-import javax.swing.UIManager;
+import javax.swing.JOptionPane;
 //import javax.swing.plaf.metal.*;
 
 /**
@@ -33,22 +36,13 @@ public class CatanMarketsUI extends javax.swing.JFrame {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 System.out.println(info.getName());
                 if ("Windows".equals(info.getName())) {
-//                    MetalLookAndFeel.setCurrentTheme(new DefaultMetalTheme());
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-//            UIManager.setLookAndFeel(
-//            UIManager.getCrossPlatformLookAndFeelClassName());
-//            System.out.println("dn");
-//            javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
-//            javax.swing.UIManager.setLookAndFeel(UIManager.);
         } catch (Exception e){
             e.printStackTrace();
         }
-//        graph = new Graph(new Data(0f,0f,0f,0f,0f));
-//        graphPanel.add(graph);
-//        ejectedGraph.add(graph);
     }
 
     /**
@@ -119,6 +113,8 @@ public class CatanMarketsUI extends javax.swing.JFrame {
         jButton12 = new javax.swing.JButton();
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
+        jFileChooser1 = new javax.swing.JFileChooser();
+        status = new javax.swing.JOptionPane();
         graphPanel = new javax.swing.JPanel();
         graphActual = new Graph(new Data(0f,0f,0f,0f,0f));
         optionsPanel = new javax.swing.JPanel();
@@ -518,6 +514,11 @@ public class CatanMarketsUI extends javax.swing.JFrame {
         });
 
         jButton9.setText("Cancel");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jButton13.setText("Reset");
         jButton13.addActionListener(new java.awt.event.ActionListener() {
@@ -1117,10 +1118,20 @@ public class CatanMarketsUI extends javax.swing.JFrame {
 
         jMenuItem9.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem9.setText("Save");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem9);
 
         jMenuItem11.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem11.setText("Open");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem11);
         jMenu1.add(jSeparator2);
 
@@ -1514,6 +1525,8 @@ public class CatanMarketsUI extends javax.swing.JFrame {
                 System.out.println("NOT ENOUGH");
             }
         }
+        to = Commodity.NONE;
+        from = Commodity.NONE;
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jRadioButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton8ActionPerformed
@@ -1564,6 +1577,98 @@ public class CatanMarketsUI extends javax.swing.JFrame {
         newRoundPane.setVisible(false);
         updateThings();
     }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        // TODO add your handling code here:
+        // SAVE FILE        
+        ArrayList<Data> dts = graphActual.getData();
+                
+        // Assume default encoding.
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter("save.txt");
+        
+
+            // Always wrap FileWriter in BufferedWriter.
+            BufferedWriter out = new BufferedWriter(fileWriter);
+        
+            out.write(Integer.toString(dts.size()));
+            out.write(" ");
+            for (Data d : dts){
+                out.write(Double.toString(d.brick));
+                out.write(" ");
+                out.write(Double.toString(d.sheep));
+                out.write(" ");
+                out.write(Double.toString(d.stone));
+                out.write(" ");
+                out.write(Double.toString(d.wheat));
+                out.write(" ");
+                out.write(Double.toString(d.wood));
+                out.write(" ");
+            }          
+            out.close();
+            status.showMessageDialog(null, "Game saved successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            System.out.println("Unable to save");
+             status.showMessageDialog(null, "Unable to save game", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        // TODO add your handling code here:
+        // OPEN FILE
+        //RandomAccessFile in;
+        
+        
+        graphActual.reset();
+        graphEjectedActual.reset();
+        ArrayList<Data> dts = graphActual.getData();
+                
+        try {
+            BufferedReader in = new BufferedReader(new FileReader("save.txt"));
+         
+            String[] temp;
+            String delimiter = " ";
+            
+            
+            temp = in.readLine().split(delimiter);
+//            System.out.println("=======");
+//            for(int i = 0; i < temp.length; i++){
+//                System.out.println(temp[i]);
+//            }
+//            System.out.println("=======");
+            int size = Integer.parseInt(temp[0]);
+            for (int i = 1 ; i < temp.length; i++){
+                double brick = Double.parseDouble(temp[i]);
+                double sheep = Double.parseDouble(temp[i]);
+                double stone = Double.parseDouble(temp[i]);
+                double wheat = Double.parseDouble(temp[i]);
+                double wood = Double.parseDouble(temp[i]);
+                System.out.println("stone:" + stone + " wheat:" + wheat + " brick:" + brick + " sheep:" + sheep + " wood:" + wood);
+                Data d = new Data(stone, wheat, brick, sheep, wood);
+                dts.add(d);
+            }
+            System.out.println(dts.size());
+            graphActual.setData(dts);
+            graphEjectedActual.setData(dts);
+            updateThings();
+            dts = graphActual.getData();
+            System.out.println("============");
+            System.out.println(dts.size());
+            for (Data d : dts){
+                System.out.println(" stone:" + d.stone + " wheat:" + d.wheat + " brick:" + d.brick + " sheep:" + d.sheep + " wood:" + d.wood);
+            }
+            status.showMessageDialog(null, "Successfully opened game", "Information", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            System.out.println("Unable to save");
+             status.showMessageDialog(null, "Unable to open game" + "\n" + e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     private void updateThings(){
         ArrayList<Data> datas = graphActual.getData();
@@ -1902,6 +2007,7 @@ public class CatanMarketsUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JDialog jDialog1;
+    private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1964,6 +2070,7 @@ public class CatanMarketsUI extends javax.swing.JFrame {
     private javax.swing.JSpinner sheepSpin;
     private javax.swing.JLabel sheepUDF;
     private javax.swing.JLabel sheepValue;
+    private javax.swing.JOptionPane status;
     private javax.swing.JLabel stoneCount;
     private javax.swing.JLabel stoneEject;
     private javax.swing.JPanel stonePanel;
