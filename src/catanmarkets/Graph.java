@@ -49,7 +49,7 @@ public class Graph extends javax.swing.JPanel{
         super.paintComponent(gg);
         Graphics2D g = (Graphics2D) gg.create();
         g.setStroke(new BasicStroke(3));
-                
+              
         // Draw
         if ((parsed.size() - 1) <= (factor - 1)){
             for (int i = 0; i < parsed.size() - 1; i++){
@@ -110,7 +110,7 @@ public class Graph extends javax.swing.JPanel{
     }
     
     public Data getCompiled(){
-        return compiled;
+        return parsed.get(parsed.size() - 1);
     }
     
     public void reset(){

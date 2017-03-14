@@ -71,4 +71,15 @@ public class Data {
         c.total = a.total + b.total;
         return c;
     }
+    
+    public Data _sub(Data a, Data b){
+        Data c = new Data(0.0,0.0,0.0,0.0,0.0);
+        c.brick = a.brick - b.brick;
+        c.stone = a.stone - b.stone;
+        c.wheat = a.wheat - b.wheat;
+        c.wood = a.wood - b.wood;
+        c.sheep = a.sheep - b.sheep;
+        c.total = a.total - b.total;
+        return c;
+    }
 }
