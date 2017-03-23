@@ -23,33 +23,23 @@ public class Data {
     }
     
     public double stone(){
-//        System.out.println("STONE: " + (stone/total * 100.00));
         return (1 - stone/total) * 100.00;
-//        return (1/stone) * 100.00;
     }
     
     public double wheat(){
-//        System.out.println("WHEAT: " + (wheat/total * 100.00));
         return (1 - wheat/total) * 100.00;
-//        return (1/wheat) * 100.00;
     }
     
     public double brick(){
-//        System.out.println("BRICK: " + (brick/total * 100.00));
         return (1 - brick/total) * 100.00;
-//        return (1/brick) * 100.00;
     }
     
     public double wood(){
-//        System.out.println("WOOD: " + (wood/total * 100.00));
         return (1 - wood/total) * 100.00;
-//        return (1/wood) * 100.00;
     }
     
     public double sheep(){
-//        System.out.println("SHEEP: " + (sheep/total * 100.00));
         return (1 - sheep/total) * 100.00;
-//        return (1/sheep) * 100.00;
     }
     
     public void add(Data d){
